@@ -27,7 +27,7 @@ export default function StartPage() {
       shuffledCardList[i] = shuffledCardList[j];
       shuffledCardList[j] = k;
     }
-    const randomizedCards = shuffledCardList.slice(0, 14);
+    const randomizedCards = shuffledCardList.slice(0, 6);
     const duplicatedCardList = [...randomizedCards, ...randomizedCards].map(
       (card, i) => ({
         ...card,

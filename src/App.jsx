@@ -14,7 +14,7 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
-    const url = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=1025";
+    const url = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=500";
 
     fetch(url)
       .then((res) => res.json())
