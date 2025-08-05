@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react";
-
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import StartPage from "./StartPage";
 import GameBoard from "./GameBoard";
@@ -14,7 +14,7 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
-    const url = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=50";
+    const url = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=1025";
 
     fetch(url)
       .then((res) => res.json())
@@ -60,7 +60,10 @@ function App() {
         }}
       >
         <div className="main-container">
-          {gameStarted ? <GameBoard /> : <StartPage />}
+          <Routes>
+            <Route path="/" element={<StartPage />} />
+            <Route path="/pokematch" element={<GameBoard />} />
+          </Routes>
         </div>
       </PokeCardContext.Provider>
     </>

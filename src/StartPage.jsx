@@ -1,27 +1,42 @@
 import { usePokeCardContext } from "./App";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function StartPage() {
   const {
     typeFilter,
     setTypeFilter,
-    pokemonCards,
     setPokemonCards,
     pokemonList,
     setGameStarted,
   } = usePokeCardContext();
 
+  const navigate = useNavigate();
+
   function handleGameStartClick() {
-    const duplicatedCardList = [...pokemonCards, ...pokemonCards].map(
-      (pokeCard, i) => ({
-        ...pokeCard,
+    let startingCardList =
+      typeFilter === "All"
+        ? pokemonList
+        : pokemonList.filter((element) => element.types.includes(typeFilter));
+
+    // fisher yates array shuffle method
+    let shuffledCardList = [...startingCardList];
+    for (let i = shuffledCardList.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let k = shuffledCardList[i];
+      shuffledCardList[i] = shuffledCardList[j];
+      shuffledCardList[j] = k;
+    }
+    const randomizedCards = shuffledCardList.slice(0, 14);
+    const duplicatedCardList = [...randomizedCards, ...randomizedCards].map(
+      (card, i) => ({
+        ...card,
         uniqueId: i,
         isFlipped: false,
         isMatched: false,
       })
     );
 
-    // fisher yates array shuffle method
     for (let i = duplicatedCardList.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       let k = duplicatedCardList[i];
@@ -30,6 +45,7 @@ export default function StartPage() {
     }
     setPokemonCards(duplicatedCardList);
     setGameStarted(true);
+    navigate("/pokematch");
   }
 
   useEffect(() => {
