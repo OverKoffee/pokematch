@@ -1,35 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect, createContext, useContext } from "react";
+
+import "./App.css";
+import StartPage from "./StartPage";
+import GameBoard from "./GameBoard";
+
+const PokeCardContext = createContext();
+export const usePokeCardContext = () => useContext(PokeCardContext);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [pokemonList, setPokemonList] = useState([]);
+  const [pokemonCards, setPokemonCards] = useState([]);
+  const [typeFilter, setTypeFilter] = useState("All");
+  const [gameStarted, setGameStarted] = useState(false);
+
+  useEffect(() => {
+    const url = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=50";
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        const originalFullList = [];
+        const results = data.results;
+
+        results.forEach((element) => {
+          const pokeID = element.url.split("/").filter(Boolean).pop();
+
+          fetch(`https://pokeapi.co/api/v2/pokemon/${pokeID}`)
+            .then((res) => res.json())
+            .then((data) => {
+              const individualPokemon = {
+                id: Number(pokeID),
+                name: element.name,
+                pokeURL: element.url,
+                pokeImage: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeID}.png`,
+                types: data.types.map((type) => type.type.name),
+              };
+              originalFullList.push(individualPokemon);
+
+              if (originalFullList.length === results.length) {
+                setPokemonList(originalFullList);
+                setPokemonCards(originalFullList);
+              }
+            });
+        });
+      });
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <PokeCardContext.Provider
+        value={{
+          pokemonCards,
+          setPokemonCards,
+          pokemonList,
+          typeFilter,
+          setTypeFilter,
+          gameStarted,
+          setGameStarted,
+        }}
+      >
+        <div className="main-container">
+          {gameStarted ? <GameBoard /> : <StartPage />}
+        </div>
+      </PokeCardContext.Provider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
