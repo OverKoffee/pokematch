@@ -1,9 +1,13 @@
 import { usePokeCardContext } from "./App";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function GameBoard() {
   const { pokemonCards, setPokemonCards } = usePokeCardContext();
   const [flippedCards, setFlippedCards] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+
+  const navigate = useNavigate();
 
   function handleCardClick(id) {
     const clickedCard = pokemonCards.find((card) => {
@@ -54,7 +58,20 @@ export default function GameBoard() {
         }, 600);
       }
     }
+    if (
+      pokemonCards.length > 0 &&
+      pokemonCards.every((card) => card.isMatched)
+    ) {
+      setGameOver(true);
+    }
   }, [flippedCards, pokemonCards, setPokemonCards]);
+
+  useEffect(() => {
+    if (gameOver) {
+      navigate("/gameover");
+      setGameOver(false);
+    }
+  }, [gameOver]);
 
   return (
     <>

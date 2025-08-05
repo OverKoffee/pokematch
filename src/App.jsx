@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import StartPage from "./StartPage";
 import GameBoard from "./GameBoard";
+import GameOver from "./GameOver";
 
 const PokeCardContext = createContext();
 export const usePokeCardContext = () => useContext(PokeCardContext);
@@ -63,6 +64,7 @@ function App() {
           <Routes>
             <Route path="/" element={<StartPage />} />
             <Route path="/pokematch" element={<GameBoard />} />
+            <Route path="/gameover" element={<GameOver />} />
           </Routes>
         </div>
       </PokeCardContext.Provider>
