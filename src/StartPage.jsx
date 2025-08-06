@@ -13,6 +13,29 @@ export default function StartPage() {
 
   const navigate = useNavigate();
 
+  const typeColors = {
+    bug: "#A6B91A",
+    dark: "#705746",
+    dragon: "#6F35FC",
+    electric: "#F7D02C",
+    fairy: "#D685AD",
+    fighting: "#C22E28",
+    fire: "#EE8130",
+    flying: "#A98FF3",
+    ghost: "#735797",
+    grass: "#7AC74C",
+    ground: "#E2BF65",
+    ice: "#96D9D6",
+    normal: "#A8A77A",
+    poison: "#A33EA1",
+    psychic: "#F95587",
+    rock: "#B6A136",
+    steel: "#B7B7CE",
+    water: "#6390F0",
+  };
+
+  const allTypes = ["All", ...Object.keys(typeColors)];
+
   function handleGameStartClick() {
     let startingCardList =
       typeFilter === "All"
@@ -66,32 +89,32 @@ export default function StartPage() {
       <h3>Choose your Pokemon type</h3>
       <br />
       <select
+        style={{
+          fontWeight: "bold",
+          color: "#000000ff",
+          backgroundColor: "#dcdbdb7a",
+        }}
         className="filter-type-dropdown"
         defaultValue="All"
         onChange={(e) => {
           setTypeFilter(e.target.value);
         }}
       >
-        <option value="All">All</option>
-        <option value="bug">Bug</option>
-        <option value="dark">Dark</option>
-        <option value="dragon">Dragon</option>
-        <option value="electric">Electric</option>
-        <option value="fairy">Fairy</option>
-        <option value="fighting">Fighting</option>
-        <option value="fire">Fire</option>
-        <option value="flying">Flying</option>
-        <option value="ghost">Ghost</option>
-        <option value="grass">Grass</option>
-        <option value="ground">Ground</option>
-        <option value="ice">Ice</option>
-        <option value="normal">Normal</option>
-        <option value="poison">Poison</option>
-        <option value="psychic">Psychic</option>
-        <option value="rock">Rock</option>
-        <option value="steel">Steel</option>
-        <option value="water">Water</option>
+        {allTypes.map((type) => (
+          <option
+            key={type}
+            value={type}
+            style={{
+              fontWeight: "bold",
+              color: typeColors[type],
+              backgroundColor: "#ffffffbb",
+            }}
+          >
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </option>
+        ))}
       </select>
+
       <br />
       <br />
       <br />
@@ -101,3 +124,9 @@ export default function StartPage() {
     </>
   );
 }
+
+/*
+  Reference: 
+
+  Pokemon type colors: https://gist.github.com/apaleslimghost/0d25ec801ca4fc43317bcff298af43c3
+*/

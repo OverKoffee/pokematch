@@ -13,7 +13,7 @@ export default function GameOver() {
         height={height}
         numberOfPieces={500}
         colors={["#f00", "#0f0", "#00f"]}
-        recycle={true}
+        recycle={false}
       />
       <div className="game-over-content">
         <h1> Winner! </h1>
