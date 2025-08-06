@@ -75,7 +75,7 @@ export default function GameBoard() {
 
   return (
     <>
-      <h2>Made it to GameBoard</h2>
+      <h2>Pokématch</h2>
       <div className="game-board">
         {pokemonCards.map((card) => (
           <div

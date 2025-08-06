@@ -27,7 +27,7 @@ export default function StartPage() {
       shuffledCardList[i] = shuffledCardList[j];
       shuffledCardList[j] = k;
     }
-    const randomizedCards = shuffledCardList.slice(0, 3);
+    const randomizedCards = shuffledCardList.slice(0, 9);
     const duplicatedCardList = [...randomizedCards, ...randomizedCards].map(
       (card, i) => ({
         ...card,
@@ -61,7 +61,7 @@ export default function StartPage() {
 
   return (
     <>
-      <h2>Welcome</h2>
+      <h1>Welcome</h1>
       <br />
       <h3>Choose your Pokemon type</h3>
       <br />
