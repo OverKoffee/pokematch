@@ -1,6 +1,7 @@
 import { usePokeCardContext } from "./App";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { pokeball } from "./assets/images/pokeball.png";
 
 export default function GameBoard() {
   const { pokemonCards, setPokemonCards } = usePokeCardContext();
@@ -92,11 +93,7 @@ export default function GameBoard() {
                 <img src={card.pokeImage} alt="pokeImage fail.." />
               </div>
               <div className="card__face card__face--back">
-                <img
-                  src="./src/assets/images/pokeball.png"
-                  width="30px"
-                  alt="Pokecard"
-                />
+                <img src={pokeball} width="30px" alt="Pokecard" />
               </div>
             </div>
           </div>
