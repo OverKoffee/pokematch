@@ -88,6 +88,7 @@ export default function StartPage() {
       <br />
       <h3>Choose your Pokemon type</h3>
       <br />
+
       <select
         style={{
           fontWeight: "bold",
