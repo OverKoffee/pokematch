@@ -8,7 +8,7 @@ import GameOver from "./GameOver";
 const PokeCardContext = createContext();
 export const usePokeCardContext = () => useContext(PokeCardContext);
 
-const levelToPairs = { Easy: 10, Medium: 18, Hard: 26 };
+const levelToPairs = { Easy: 12, Medium: 20, Hard: 30 };
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);

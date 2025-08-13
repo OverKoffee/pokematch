@@ -126,11 +126,6 @@ export default function StartPage() {
         onChange={(e) => {
           const next = e.target.value;
           setDifficultyLevel(next);
-
-          const levelToPairs = { Easy: 10, Medium: 18, Hard: 26 };
-          console.log(
-            `Difficulty level: ${next} and pairLevel set to ${levelToPairs[next]}`
-          );
         }}
         style={{
           fontWeight: "bold",

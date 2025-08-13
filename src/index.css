@@ -11,6 +11,17 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --gap: 12px;
+  --card-w: 90px;
+  --card-h: 126px;
+  --cols: 4;
+}
+
+.main-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 a {
@@ -24,10 +35,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 20rem;
-  min-height: 100vh;
+  min-height: 100dvh;
+  display: block;
 }
 
 h1 {
@@ -67,28 +77,42 @@ button:focus-visible {
   }
 }
 
-.game-board {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(6.25rem, 1fr));
-  gap: 1rem;
-  max-width: 43.75rem;
+/* =======================
+   Board container & grid
+   ======================= */
+
+.board-wrap {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1000px;
+  height: calc(100dvh - 80px);
   margin: 0 auto;
+  padding: 12px;
+  display: flex;
   justify-content: center;
+  align-items: flex-start;
+}
+
+.game-board {
+  visibility: hidden;
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(var(--cols), var(--card-w));
+  grid-auto-rows: var(--card-h);
 }
 
 .poke-card {
-  width: 4.375rem;
-  height: 6.125rem;
-  perspective: 62.5rem;
-}
-
-.poke-card:hover {
-  width: 100px;
-  height: 140px;
+  width: var(--card-w);
+  height: var(--card-h);
   perspective: 1000px;
+  transition: transform 0.2s;
+}
+.poke-card:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
+
+/* =============== Card faces / flip =============== */
 
 .card__inner {
   width: 100%;
@@ -97,7 +121,6 @@ button:focus-visible {
   transform-style: preserve-3d;
   position: relative;
 }
-
 .card__inner.is-flipped {
   transform: rotateY(180deg);
 }
@@ -117,7 +140,6 @@ button:focus-visible {
 }
 
 .card__face--front {
-  background: #ffffff;
   background: linear-gradient(
     17deg,
     rgba(255, 255, 255, 1) 0%,
@@ -149,47 +171,27 @@ button:focus-visible {
   pointer-events: none;
 }
 
-@media (max-width: 37.5rem) {
-  .game-board {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
-    padding: 0.75rem;
-    max-width: 100%;
-  }
+/* ======================= Responsive tweaks ======================= */
 
-  .poke-card {
-    width: 100%;
-    aspect-ratio: 5 / 7;
-    max-width: 6.25rem;
+@media (max-width: 480px) {
+  .board-wrap {
+    height: calc(100dvh - 96px);
+    padding: 8px;
   }
-
-  .poke-card:hover {
-    transform: scale(1.05);
-  }
-
-  h1 {
-    font-size: 1.75rem;
-    text-align: center;
-  }
-
-  button {
-    width: 100%;
-    max-width: 17.5rem;
-    margin: 1rem auto;
-    display: block;
+  :root {
+    :root {
+      --gap: 12px;
+    }
   }
 }
 
-@media (min-width: 30rem) and (max-width: 48rem) {
-  .game-board {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-  }
-
-  .poke-card {
-    max-width: 5.625rem;
+@media (min-width: 481px) {
+  :root {
+    --gap: 10px;
   }
 }
+
+/* ======================= Dropdown styles (unchanged) ======================= */
 
 .filter-type-dropdown {
   appearance: none;
@@ -228,7 +230,6 @@ button:focus-visible {
     color: #213547;
     border-color: #747bff;
   }
-
   .filter-type-dropdown option {
     background-color: #ffffff;
     color: #213547;
