@@ -26,7 +26,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  min-width: 20rem;
   min-height: 100vh;
 }
 
@@ -69,16 +69,16 @@ button:focus-visible {
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(6.25rem, 1fr));
   gap: 1rem;
-  max-width: 700px;
+  max-width: 43.75rem;
   margin: auto;
 }
 
 .poke-card {
-  width: 100px;
-  height: 140px;
-  perspective: 1000px;
+  width: 6.25rem;
+  height: 8.75rem;
+  perspective: 62.5rem;
 }
 
 .poke-card:hover {
@@ -148,9 +148,9 @@ button:focus-visible {
   pointer-events: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 37.5rem) {
   .game-board {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 0.5rem;
     padding: 0.75rem;
     max-width: 100%;
@@ -159,11 +159,11 @@ button:focus-visible {
   .poke-card {
     width: 100%;
     aspect-ratio: 5 / 7;
-    max-width: 100px;
+    max-width: 6.25rem;
   }
 
   .poke-card:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
   }
 
   h1 {
@@ -173,20 +173,20 @@ button:focus-visible {
 
   button {
     width: 100%;
-    max-width: 280px;
+    max-width: 17.5rem;
     margin: 1rem auto;
     display: block;
   }
 }
 
-@media (min-width: 480px) and (max-width: 768px) {
+@media (min-width: 30rem) and (max-width: 48rem) {
   .game-board {
     grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
   }
 
   .poke-card {
-    max-width: 90px;
+    max-width: 5.625rem;
   }
 }
 
@@ -205,14 +205,14 @@ button:focus-visible {
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   transition: border-color 0.25s, box-shadow 0.25s;
-  max-width: 300px;
+  max-width: 18.75rem;
   width: 100%;
 }
 
 .filter-type-dropdown:focus {
   outline: none;
   border-color: #747bff;
-  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.5);
+  box-shadow: 0 0 0 0.1875rem rgba(100, 108, 255, 0.5);
 }
 
 .filter-type-dropdown option {
@@ -234,7 +234,7 @@ button:focus-visible {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 37.5rem) {
   .filter-type-dropdown {
     font-size: 1rem;
     padding: 0.5em 0.8em;

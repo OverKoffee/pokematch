@@ -1,7 +1,7 @@
 import { usePokeCardContext } from "./App";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { pokeball } from "./assets/images/pokeball.png";
+import pokeball from "./assets/images/pokeball.png";
 
 export default function GameBoard() {
   const { pokemonCards, setPokemonCards } = usePokeCardContext();
