@@ -72,12 +72,13 @@ button:focus-visible {
   grid-template-columns: repeat(auto-fit, minmax(6.25rem, 1fr));
   gap: 1rem;
   max-width: 43.75rem;
-  margin: auto;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .poke-card {
-  width: 6.25rem;
-  height: 8.75rem;
+  width: 4.375rem;
+  height: 6.125rem;
   perspective: 62.5rem;
 }
 
@@ -150,7 +151,7 @@ button:focus-visible {
 
 @media (max-width: 37.5rem) {
   .game-board {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
     padding: 0.75rem;
     max-width: 100%;

@@ -9,6 +9,9 @@ export default function StartPage() {
     setPokemonCards,
     pokemonList,
     setGameStarted,
+    pairLevel,
+    difficultyLevel,
+    setDifficultyLevel,
   } = usePokeCardContext();
 
   const navigate = useNavigate();
@@ -35,6 +38,7 @@ export default function StartPage() {
   };
 
   const allTypes = ["All", ...Object.keys(typeColors)];
+  const levels = ["Easy", "Medium", "Hard"];
 
   function handleGameStartClick() {
     let startingCardList =
@@ -50,7 +54,7 @@ export default function StartPage() {
       shuffledCardList[i] = shuffledCardList[j];
       shuffledCardList[j] = k;
     }
-    const randomizedCards = shuffledCardList.slice(0, 9);
+    const randomizedCards = shuffledCardList.slice(0, pairLevel); // determine number of card pairs
     const duplicatedCardList = [...randomizedCards, ...randomizedCards].map(
       (card, i) => ({
         ...card,
@@ -87,8 +91,6 @@ export default function StartPage() {
       <h1>Welcome</h1>
       <br />
       <h3>Choose your Pokemon type</h3>
-      <br />
-
       <select
         style={{
           fontWeight: "bold",
@@ -115,7 +117,41 @@ export default function StartPage() {
           </option>
         ))}
       </select>
+      <br />
+      <br /> <br />
+      <h3>Choose Difficulty Level</h3>
+      <select
+        className="filter-type-dropdown"
+        value={difficultyLevel}
+        onChange={(e) => {
+          const next = e.target.value;
+          setDifficultyLevel(next);
 
+          const levelToPairs = { Easy: 10, Medium: 18, Hard: 26 };
+          console.log(
+            `Difficulty level: ${next} and pairLevel set to ${levelToPairs[next]}`
+          );
+        }}
+        style={{
+          fontWeight: "bold",
+          color: "#000",
+          backgroundColor: "#dcdbdb7a",
+        }}
+      >
+        {levels.map((lvl) => (
+          <option
+            key={lvl}
+            value={lvl}
+            style={{
+              fontWeight: "bold",
+              color: "#000",
+              backgroundColor: "#ffffffbb",
+            }}
+          >
+            {lvl}
+          </option>
+        ))}
+      </select>
       <br />
       <br />
       <br />
