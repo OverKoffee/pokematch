@@ -1,5 +1,5 @@
 import { usePokeCardContext } from "./App";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function StartPage() {
@@ -12,9 +12,12 @@ export default function StartPage() {
     pairLevel,
     difficultyLevel,
     setDifficultyLevel,
+    gameStarted,
   } = usePokeCardContext();
 
   const navigate = useNavigate();
+
+  const [tapState, setTapState] = useState({ count: 0, last: 0 });
 
   const typeColors = {
     bug: "#A6B91A",
@@ -75,20 +78,50 @@ export default function StartPage() {
     navigate("/pokematch");
   }
 
+  const handleSecretTap = () => {
+    const now = Date.now();
+    setTapState((prev) => {
+      const within = now - prev.last <= 1000; // 1s between taps allowed
+      const count = within ? prev.count + 1 : 1;
+
+      if (count >= 5) {
+        // navigate and reset
+        setTimeout(() => navigate("/love"), 0);
+        return { count: 0, last: 0 };
+      }
+      return { count, last: now };
+    });
+  };
+
   useEffect(() => {
+    // Don't overwrite the in-play deck once the game has started
+    if (gameStarted) return;
     if (typeFilter === "All") {
       setPokemonCards(pokemonList);
     } else {
-      let filteredTypeList = pokemonList.filter((element) => {
-        return element.types.includes(typeFilter);
-      });
-      setPokemonCards(filteredTypeList);
+      const filtered = pokemonList.filter((p) => p.types.includes(typeFilter));
+      setPokemonCards(filtered);
     }
-  }, [typeFilter, pokemonList]);
+  }, [typeFilter, pokemonList, gameStarted]);
 
   return (
     <>
-      <h1>Welcome</h1>
+      <h1
+        // pointer is faster/more reliable than click on mobile
+        onPointerDown={handleSecretTap}
+        // mobile-friendly tweaks to avoid double-tap zoom / selection flicker
+        style={{
+          cursor: "pointer",
+          WebkitTapHighlightColor: "transparent",
+          userSelect: "none",
+          touchAction: "manipulation",
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Welcome (secret tap)"
+      >
+        Welcome
+      </h1>
       <br />
       <h3>Choose your Pokemon type</h3>
       <select

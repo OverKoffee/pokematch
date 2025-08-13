@@ -4,6 +4,7 @@ import "./App.css";
 import StartPage from "./StartPage";
 import GameBoard from "./GameBoard";
 import GameOver from "./GameOver";
+import Love from "./Love";
 
 const PokeCardContext = createContext();
 export const usePokeCardContext = () => useContext(PokeCardContext);
@@ -64,7 +65,14 @@ function App() {
       gameStarted,
       setGameStarted,
     }),
-    [pokemonCards, pokemonList, typeFilter, pairLevel, difficultyLevel]
+    [
+      pokemonCards,
+      pokemonList,
+      typeFilter,
+      pairLevel,
+      difficultyLevel,
+      gameStarted,
+    ]
   );
 
   return (
@@ -75,6 +83,7 @@ function App() {
             <Route path="/" element={<StartPage />} />
             <Route path="/pokematch" element={<GameBoard />} />
             <Route path="/gameover" element={<GameOver />} />
+            <Route path="/love" element={<Love />} />
           </Routes>
         </div>
       </PokeCardContext.Provider>

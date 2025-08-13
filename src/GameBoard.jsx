@@ -9,7 +9,27 @@ export default function GameBoard() {
 
   const [flippedCards, setFlippedCards] = useState([]);
   const [gameOver, setGameOver] = useState(false);
+  const [elapsedMs, setElapsedMs] = useState(0);
+  const timerRef = useRef(null);
+
   const navigate = useNavigate();
+
+  // ---- Timer: start on mount, tick every second, clear on unmount
+  useEffect(() => {
+    const startedAt = Date.now();
+    timerRef.current = setInterval(() => {
+      setElapsedMs(Date.now() - startedAt);
+    }, 1000);
+    return () => clearInterval(timerRef.current);
+  }, []);
+
+  // Small formatter for mm:ss
+  const fmtTime = (ms) => {
+    const total = Math.floor(ms / 1000);
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  };
 
   const wrapRef = useRef(null);
 
@@ -157,16 +177,21 @@ export default function GameBoard() {
     }
   }, [flippedCards, pokemonCards, setPokemonCards]);
 
+  // GameBoard.jsx
   useEffect(() => {
     if (gameOver) {
-      navigate("/gameover");
+      clearInterval(timerRef.current);
+      navigate("/gameover", { state: { elapsedMs, difficultyLevel } });
       setGameOver(false);
     }
-  }, [gameOver, navigate]);
+  }, [gameOver, elapsedMs, difficultyLevel, navigate]);
 
   return (
     <>
-      <h3>Pokématch</h3>
+      <div className="hud">
+        <h3>Pokématch</h3>
+        <div className="timer">⏱ {fmtTime(elapsedMs)}</div>
+      </div>
 
       <div className="board-wrap" ref={wrapRef}>
         <div className="game-board">

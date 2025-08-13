@@ -179,9 +179,7 @@ button:focus-visible {
     padding: 8px;
   }
   :root {
-    :root {
-      --gap: 12px;
-    }
+    --gap: 12px;
   }
 }
 
@@ -241,4 +239,25 @@ button:focus-visible {
     font-size: 1rem;
     padding: 0.5em 0.8em;
   }
+}
+
+.hud {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 8px;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.timer {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.easter-egg-div {
+  border-radius: 10px;
+  background-color: #f9abf696;
 }
